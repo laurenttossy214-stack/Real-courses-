@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAURENT TOSSY CREATIVE HUB</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+<style>
+body {
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    background:#0f172a;
+    color:white;
+}
+
+.hero {
+    height:100vh;
+    background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.8)),url('laurent.jpg') center/cover;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.hero h1 {color:#facc15;font-size:50px;}
+
+.btn {
+    background:red;
+    padding:12px 25px;
+    border-radius:30px;
+    color:white;
+    text-decoration:none;
+    display:inline-block;
+    margin-top:10px;
+}
+
+nav {background:black;padding:15px;text-align:center;}
+nav a {color:white;margin:10px;text-decoration:none;}
+
+section {padding:60px 20px;text-align:center;}
+
+.grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card {
+    background:#1e293b;
+    padding:20px;
+    border-radius:15px;
+}
+
+.profile img {width:200px;border-radius:50%;}
+
+.contact {background:#facc15;color:black;}
+
+input {
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="hero">
+    <div>
+        <h1>LAURENT TOSSY CREATIVE HUB</h1>
+        <p>Ubunifu • Mafanikio • Uongozi</p>
+        <a href="https://wa.me/255789415564" class="btn">WhatsApp</a>
+    </div>
+</div>
+
+<nav>
+<a href="#courses">Kozi</a>
+<a href="#books">Vitabu</a>
+<a href="#login">Login</a>
+</nav>
+
+<section class="profile">
+    <img src="laurent.jpg">
+    <p>Mimi ni mwandishi wa vitabu zaidi ya 52.</p>
+</section>
+
+<section id="courses">
+<h2>Kozi</h2>
+<div class="grid">
+<div class="card">
+<h3>Uandishi</h3>
+<p>50,000 TZS</p>
+<a href="https://checkout.flutterwave.com/YOUR-LINK" class="btn">Lipia</a>
+</div>
+
+<div class="card">
+<h3>Uongozi</h3>
+<p>40,000 TZS</p>
+<a href="https://checkout.flutterwave.com/YOUR-LINK" class="btn">Lipia</a>
+</div>
+</div>
+</section>
+
+<section id="books">
+<h2>Vitabu</h2>
+<div class="grid">
+<div class="card">THE ART OF LOVE</div>
+<div class="card">KABLA YA NDOA</div>
+<div class="card">NGUVU YA KIONGOZI</div>
+</div>
+</section>
+
+<section id="login">
+<h2>Student Login</h2>
+
+<input id="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="register()" class="btn">Register</button>
+<button onclick="login()" class="btn">Login</button>
+<button onclick="logout()" class="btn">Logout</button>
+
+</section>
+
+<section id="dashboard" style="display:none;">
+<h2>Dashboard ya Mwanafunzi</h2>
+<p>Karibu kwenye kozi zako 🎓</p>
+</section>
+
+<section class="contact">
+<h2>Mawasiliano</h2>
+<p>WhatsApp: 0789415564</p>
+<p>Simu: 0662925019</p>
+</section>
+
+<script>
+// 🔥 WEKA CONFIG YAKO HAPA
+const firebaseConfig = {
+  apiKey: "WEKA_YAKO",
+  authDomain: "WEKA_YAKO",
+  projectId: "WEKA_YAKO",
+};
+
+// INIT
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// REGISTER
+function register(){
+    let email = document.getElementById("email").value;
+    let pass = document.getElementById("password").value;
+
+    auth.createUserWithEmailAndPassword(email, pass)
+    .then(()=> alert("Umefanikiwa kujisajili"))
+    .catch(err=> alert(err.message));
+}
+
+// LOGIN
+function login(){
+    let email = document.getElementById("email").value;
+    let pass = document.getElementById("password").value;
+
+    auth.signInWithEmailAndPassword(email, pass)
+    .then(()=>{
+        alert("Karibu!");
+        document.getElementById("dashboard").style.display="block";
+    })
+    .catch(err=> alert(err.message));
+}
+
+// LOGOUT
+function logout(){
+    auth.signOut();
+    alert("Umetoka");
+}
+</script>
+
+</body>
+</html>
